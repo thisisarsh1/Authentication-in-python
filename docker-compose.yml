@@ -1,0 +1,22 @@
+services:
+ 
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server_api1
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - templet
+   
+
+
+
+
+networks:
+  templet:
+    driver: bridge
