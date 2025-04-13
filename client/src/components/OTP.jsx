@@ -26,7 +26,7 @@ function OTP() {
   const password = contextpassword;
   const email = contextemail;
   const [otp, setOtp] = useState('');
-
+console.log(otp,email)
   const Getuserinfo = async () => {
     const token = localStorage.getItem('authToken');
     try {
@@ -108,7 +108,7 @@ function OTP() {
         },
         body: JSON.stringify({
           email,
-          otp,
+          otp
         }),
       });
 

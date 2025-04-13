@@ -139,7 +139,7 @@ function SignUp() {
     if (session) {
       contextsetEmail(session.user.email);
       contextsetName(session.user.name);
-      router.push('/Main');
+      router.push('/');
     }
   }, [session]);
 

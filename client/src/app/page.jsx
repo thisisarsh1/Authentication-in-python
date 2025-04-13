@@ -1,9 +1,74 @@
+"use client"
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowRight, CheckCircle, Lock, Shield, UserCheck } from 'lucide-react'
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { toast } from "@/components/ui/use-toast" // adjust this import path based on your setup
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
+  const [token, setToken] = useState("")
+  const router = useRouter()
+
+  const getUserInfo = async () => {
+    const token = localStorage.getItem("authToken")
+    console.log("Token:", token)
+    if (!token) {
+      toast({ title: "No authentication token found" })
+      return
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/user", {
+        method: "GET",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(`HTTP Error: ${response.statusText} - ${errorText}`)
+      }
+
+      const result = await response.json()
+      setIsLoggedIn(true)
+      setEmail(result.email)
+      setName(result.name)
+      setToken(token)
+
+      toast({ title: "You are Successfully Logged In" })
+    } catch (error) {
+      toast({
+        title: "Server Error",
+      })
+    }
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+const Logout = async () => {
+  localStorage.setItem("authToken", "null");
+
+
+    // Optionally clear user-related state
+    setIsLoggedIn(false);
+    setEmail("");
+    setName("");
+    setToken("");
+
+    // Show feedback
+    toast({
+      title: "Logged out successfully",
+    });
+    router.push("/");
+}
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       {/* Header */}
@@ -25,11 +90,22 @@ export default function Home() {
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <Link href="/Login">
-              <Button variant="ghost" className="text-gray-300 hover:text-white">
-                Login
-              </Button>
-            </Link>
+          {isLoggedIn ? (
+  <Button
+    variant="ghost"
+    className="text-gray-300 hover:text-white"
+    onClick={Logout}
+  >
+    LogOut
+  </Button>
+) : (
+  <Link href="/Login">
+    <Button variant="ghost" className="text-gray-300 hover:text-white">
+      Login
+    </Button>
+  </Link>
+)}
+
             <Link href="/Signup">
               <Button className="bg-purple-600 hover:bg-purple-700 text-white">
                 Sign Up
@@ -48,6 +124,15 @@ export default function Home() {
           <p className="text-xl text-gray-400 mb-8 max-w-xl mx-auto">
             Understand the difference between authentication and authorization with our clear guide.
           </p>
+
+          {isLoggedIn && (
+            <div className="bg-gray-800 text-left p-6 rounded-xl mb-6 max-w-2xl mx-auto">
+              <p><strong>Name:</strong> {name}</p>
+              <p><strong>Email:</strong> {email}</p>
+              <p className="truncate"><strong>Token:</strong> {token}</p>
+            </div>
+          )}
+
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link href="/Signup">
               <Button size="lg" className="bg-purple-600 hover:bg-purple-700 text-white w-full sm:w-auto">

@@ -215,7 +215,7 @@ function Login() {
       localStorage.setItem('authToken', result.jwt);
 
       // Redirect to the home page and show a success message
-      router.push('/Main');
+      router.push('/');
       toast({
         title: "You are Successfully Logged In",
       });
