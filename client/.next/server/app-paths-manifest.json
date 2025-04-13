@@ -1,7 +1,7 @@
 {
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/page": "app/page.js",
-  "/(routes)/LearningPrev/page": "app/(routes)/LearningPrev/page.js",
-  "/(routes)/Main/page": "app/(routes)/Main/page.js",
-  "/(routes)/Learning/page": "app/(routes)/Learning/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/(routes)/Login/page": "app/(routes)/Login/page.js",
+  "/(routes)/Signup/page": "app/(routes)/Signup/page.js"
 }

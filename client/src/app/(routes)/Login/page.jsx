@@ -299,9 +299,7 @@ function Login() {
               <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-ai-blue-400 via-ai-teal-400 to-ai-blue-400 bg-clip-text text-transparent">
                 Welcome Back
               </h1>
-              <p className="text-xs sm:text-sm text-neutral-400 mt-1.5 sm:mt-2">
-                Sign in to continue your learning journey
-              </p>
+            
             </motion.div>
 
             {/* Organization Button - updated colors to match organization signup */}
