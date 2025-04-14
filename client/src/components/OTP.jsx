@@ -25,12 +25,12 @@ function OTP() {
   
   const password = contextpassword;
   const email = contextemail;
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
 console.log(otp,email)
   const Getuserinfo = async () => {
     const token = localStorage.getItem('authToken');
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user`, {
+      const response = await fetch(`http://localhost:8000/api/user`, {
         method: 'GET',
         headers: {
           "Authorization": token,
@@ -58,7 +58,7 @@ console.log(otp,email)
   };
 
   const Autologin = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+    const response = await fetch(`http://localhost:8000/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ console.log(otp,email)
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
+      const response = await fetch(`http://localhost:8000/api/register`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
